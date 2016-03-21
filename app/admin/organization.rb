@@ -1,18 +1,14 @@
 ActiveAdmin.register Organization do
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+permit_params	:name, :public_name, :type, :pricing_policy
 
-permit_params	:name, :public_name, :type,	:pricing_policy
-
+form do |f|
+    f.inputs "Organization" do
+      f.input   :name
+    	f.input 	:public_name, label: "Public Display Name"
+    	f.input 	:type, as: :select, collection: ["Show room", "Service", "Dealer"], label: "Type"
+    	f.input 	:pricing_policy, as: :select, collection: ["Flexible", "Fixed", "Prestige"], label: "Pricing Policy"
+  		end
+  	f.actions
+  end
 end
