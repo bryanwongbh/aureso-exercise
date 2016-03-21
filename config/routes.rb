@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :organizations
 
-  namespace :api do
-    namespace :v1 do
+  namespace :api, defaults: { format: 'json' } do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       resources :organizations
     end
   end
