@@ -1,5 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe ModelType, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe ModelType do
+	context "validations" do
+		it { should validate_presence_of(:name)}
+		it { should validate_presence_of(:model_type_slug)}
+		it { should validate_presence_of(:model_type_code)}
+		it { should validate_presence_of(:base_price)}
+	end
+	context "relationships" do
+		it { should belong_to(:model)}
+	end
 end

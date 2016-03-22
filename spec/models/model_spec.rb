@@ -8,5 +8,9 @@ describe Model do
 	end
 	context "relationships" do
 		it { should belong_to(:organization)}
+		it { have_many(:model_types)}
 	end
+	context "multi-record input" do
+		it { should accept_nested_attributes_for(:model_types)}
+	end	
 end

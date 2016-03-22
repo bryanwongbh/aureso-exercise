@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :organization do
-    name "MyString"
-    public_name "MyString"
-    type ""
-    pricing_policy "MyString"
+    name "Toyota"
+    public_name "Toyota"
+    type "Show room"
+    pricing_policy "Prestige"
   end
 end
