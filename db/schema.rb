@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321223231) do
+ActiveRecord::Schema.define(version: 20160322052856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
+  create_table "active_admin_comments", force: true do |t|
+    t.string   "namespace",     limit: nil
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: nil, null: false
+    t.string   "resource_type", limit: nil, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: nil
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,31 +31,41 @@ ActiveRecord::Schema.define(version: 20160321223231) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "admin_users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "admin_users", force: true do |t|
+    t.string   "email",                  limit: nil, default: "", null: false
+    t.string   "encrypted_password",     limit: nil, default: "", null: false
+    t.string   "reset_password_token",   limit: nil
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "organizations", force: :cascade do |t|
+  create_table "models", force: true do |t|
     t.string   "name"
-    t.string   "public_name"
-    t.string   "type"
-    t.string   "pricing_policy"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "model_slug"
+    t.integer  "organization_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "models", ["organization_id"], name: "index_models_on_organization_id", using: :btree
+
+  create_table "organizations", force: true do |t|
+    t.string   "name",           limit: nil
+    t.string   "public_name",    limit: nil
+    t.string   "type",           limit: nil
+    t.string   "pricing_policy", limit: nil
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
