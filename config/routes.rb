@@ -2,11 +2,9 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :organizations
-
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :organizations, :models, :model_types
+      get 'models/:id/model_types' => 'models#show', :as => 'model'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
