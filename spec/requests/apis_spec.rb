@@ -1,20 +1,34 @@
 require 'rails_helper'
 
-describe "Messages API" do
+describe "API Messages" do
+  
+  organization = FactoryGirl.create(:organization)
+  model = FactoryGirl.create(:model)
   
   describe "Organization API requests" do
-    it "index should return a list of organizations" do
-      # test for the 200 status-code
-      get '/api/organizations'
+    it "INDEX should return a list of organizations" do
+      get "/api/organizations"
       expect(response).to be_success
+      expect(response.status).to eq 200
+    end
+    it "SHOW should return an organization" do
+      get "/api/organizations/#{organization.id}"
+      expect(response).to be_success
+      expect(response.status).to eq 200
     end
   end
   
   describe "Model API requests" do
-    it "index should return a list of models" do
-      # test for the 200 status-code
-      get '/api/models'
+    it "INDEX should return a list of models" do
+      get "/api/models"
       expect(response).to be_success
+      expect(response.status).to eq 200
+    end
+    it "SHOW should return a model" do
+      
+      get "/api/models/#{model.id}"
+      expect(response).to be_success
+      expect(response.status).to eq 200
     end
   end
 end
