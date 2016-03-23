@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :organizations, :models
+      resources :organizations, :models, :model_types
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
