@@ -25,7 +25,6 @@ describe "API Messages" do
       expect(response.status).to eq 200
     end
     it "SHOW should return a model" do
-      
       get "/api/models/#{model.id}"
       expect(response).to be_success
       expect(response.status).to eq 200
