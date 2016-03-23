@@ -9,7 +9,7 @@ class ModelType < ActiveRecord::Base
 		if self.model.organization.pricing_policy == "Flexible"
 		elsif self.model.organization.pricing_policy == "Fixed"
 			mechanize = Mechanize.new
-			page = mechanize.get('https://developer.github.com/v3/#http-redirects')
+			margin = mechanize.get('https://developer.github.com/v3/#http-redirects')
 			return total = self.base_price + margin.search("//*[contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'status')]").count
 
 		else self.model.organization.pricing_policy == "Prestige"
