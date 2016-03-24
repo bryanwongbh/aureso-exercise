@@ -26,6 +26,12 @@ describe "API Messages" do
       expect(response.status).to eq 200
     end
   end
+  describe "POST ModelType API request" do
+    it "returns newly created ModelType" do
+      post :create, "/api/models/#{@model.model_slug}/model_t", model_type: { model_slug: "toyota", model_type_slug: "toyota-avanza", base_price: 15000 }
+      expect(response).to have_http_status :created
+    end
+  end
   
   def response_body
     JSON.parse(response.body)

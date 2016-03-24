@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 
 class ModelType < ActiveRecord::Base
-  validates	:base_price, :model_id, presence: true
+  validates	:base_price, presence: true
 
 	belongs_to :model
 
