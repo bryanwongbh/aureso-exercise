@@ -8,7 +8,7 @@ module Api
       end
       
       def show
-        respond_with ModelType.find(params[:id])
+        respond_with ModelType.friendly.find(params[:id])
       end
       
       def create

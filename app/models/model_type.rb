@@ -1,9 +1,14 @@
 require 'mechanize'
 
 class ModelType < ActiveRecord::Base
-  validates	:name, :model_type_slug, :model_type_code, :base_price, :model_id, presence: true
+  validates	:base_price, :model_id, presence: true
 
 	belongs_to :model
+
+	before_save :add_name_field
+
+	extend FriendlyId
+	friendly_id :name, use: :slugged, slug_column: :model_type_slug
 
 	def total_price
 		if self.model.organization.pricing_policy == "Flexible"
@@ -17,6 +22,12 @@ class ModelType < ActiveRecord::Base
 			margin = mechanize.get('http://www.yourlocalguardian.co.uk/sport/rugby/rss/')
 
 			return total = self.base_price + margin.search('pubDate').count
+		end
+	end
+
+	def add_name_field
+		if self.name.blank?
+			self.name = self.model_type_slug
 		end
 	end
 end
