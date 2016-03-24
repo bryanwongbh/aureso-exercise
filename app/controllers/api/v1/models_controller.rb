@@ -8,7 +8,7 @@ module Api
       end
       
       def show
-        respond_with Model.friendly.find(params[:id])
+        respond_with Model.friendly.find(params[:id]), root: "models"
       end
       
       def create
