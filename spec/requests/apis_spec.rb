@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe "API Messages" do
   before(:each) do
+    @organization = FactoryGirl.create :organization
     @model = FactoryGirl.create :model
     @model_type = FactoryGirl.create :model_type
   end
