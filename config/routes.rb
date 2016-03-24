@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         member do
           get 'model_types' => 'models#show'
         end
+        resources :model_types, path: "model_types_price"
       end
     end
   end

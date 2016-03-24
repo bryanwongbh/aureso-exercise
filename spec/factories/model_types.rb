@@ -4,6 +4,7 @@ FactoryGirl.define do
     model_type_slug "toyota-hilux"
     model_type_code "hilux01"
     base_price "99999"
-    model_id 1
+
+    model
   end
 end
