@@ -24,7 +24,15 @@ describe "API Messages" do
   end
   
   describe "GET ModelType API request" do
+    it "does not return model type" do
+      @model_type = FactoryGirl.create :model_type
+      get "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}"
+      
+      @model_type = response_body["model_type"]
+      expect(response.status).to eq 401
+    end
     it "returns a model_type" do
+      sign_in
       @model_type = FactoryGirl.create :model_type
       get "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}"
       
@@ -34,7 +42,14 @@ describe "API Messages" do
     end
   end
   describe "POST ModelType API request" do
+    it "does not return new ModelType" do
+      model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-avanza", "base_price" => 15000 }}.to_json
+      request_headers = { "Accept" => "application/json", "Content-Type" => "application/json"}
+      post "/api/models/#{@model.model_slug}/model_types_price", model_type_params, request_headers
+      expect(response.status).to eq 401
+    end
     it "returns newly created ModelType" do
+      sign_in
       model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-avanza", "base_price" => 15000 }}.to_json
       request_headers = { "Accept" => "application/json", "Content-Type" => "application/json"}
       post "/api/models/#{@model.model_slug}/model_types_price", model_type_params, request_headers
