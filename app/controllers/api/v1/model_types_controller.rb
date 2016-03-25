@@ -15,14 +15,8 @@ module Api
       
       def create
         @model = Model.find_by(params[:model_slug])
-        
         new_modeltype_params = modeltype_params.except("model_slug")
-        
-        p new_modeltype_params
-        p @model
-        
         @model_type = ModelType.new(new_modeltype_params)
-        
         @model_type.update(model_id: @model.id)
         if @model_type.save
           redirect_to api_model_model_type_path @model, @model_type
