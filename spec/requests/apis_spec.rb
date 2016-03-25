@@ -7,7 +7,14 @@ describe "API Messages" do
   end
   
   describe "GET Model API request" do
+    it "does not return a model" do
+      get "/api/models/#{@model.model_slug}/model_types"
+      
+      @model = response_body["model"]
+      expect(response.status).to eq 401
+    end
     it "returns a model" do
+      sign_in
       get "/api/models/#{@model.model_slug}/model_types"
       
       @model = response_body["model"]
