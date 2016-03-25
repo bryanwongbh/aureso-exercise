@@ -14,7 +14,19 @@ module Api
       end
       
       def create
-        respond_with ModelType.create(modeltype_params)
+        @model = Model.find_by(params[:model_slug])
+        
+        new_modeltype_params = modeltype_params.except("model_slug")
+        
+        p new_modeltype_params
+        p @model
+        
+        @model_type = ModelType.new(new_modeltype_params)
+        
+        @model_type.update(model_id: @model.id)
+        if @model_type.save
+          redirect_to api_model_model_type_path @model, @model_type
+        end
       end
       
       def update
@@ -28,7 +40,7 @@ module Api
 
       private
         def modeltype_params
-          params.require(:model_type).permit(:name, :model_type_slug, :model_type_code, :model_id, :base_price)
+          params.require(:model_type).permit(:name, :model_type_slug, :model_type_code, :base_price, :model_slug)
         end
 		end
 	end
