@@ -7,7 +7,7 @@ describe "API Messages" do
   end
   
   describe "GET Model API request" do
-    it "does not return a model" do
+    it "does not return a model without authentication" do
       get "/api/models/#{@model.model_slug}/model_types"
       
       @model = response_body["model"]
@@ -24,7 +24,7 @@ describe "API Messages" do
   end
   
   describe "GET ModelType API request" do
-    it "does not return model type" do
+    it "does not return ModelType without authentication" do
       @model_type = FactoryGirl.create :model_type
       get "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}"
       
@@ -42,7 +42,7 @@ describe "API Messages" do
     end
   end
   describe "POST ModelType API request" do
-    it "does not return new ModelType" do
+    it "does not return newly created ModelType without authentication" do
       model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-avanza", "base_price" => 15000 }}.to_json
       request_headers = { "Accept" => "application/json", "Content-Type" => "application/json"}
       post "/api/models/#{@model.model_slug}/model_types_price", model_type_params, request_headers
