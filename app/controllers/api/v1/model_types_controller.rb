@@ -1,7 +1,7 @@
 module Api
 	module V1
 		class ModelTypesController < ApplicationController
-      before_action :authenticate_user!
+      before_action :authenticate_user_from_token!
       skip_before_filter  :verify_authenticity_token, :only => [:create]
 
 			respond_to :json

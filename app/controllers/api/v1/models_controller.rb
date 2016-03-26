@@ -1,7 +1,7 @@
 module Api
 	module V1
 		class ModelsController < ApplicationController
-		  before_action :authenticate_user!
+		  before_action :authenticate_user_from_token!
 			respond_to :json
       
       def index
