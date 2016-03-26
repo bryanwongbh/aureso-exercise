@@ -7,7 +7,7 @@ class ModelType < ActiveRecord::Base
 
 	belongs_to :model
 
-	before_save :add_name_field
+	before_save :synchronize_name_and_slug
 
 	extend FriendlyId
 	friendly_id :name, use: :slugged, slug_column: :model_type_slug
@@ -45,8 +45,8 @@ class ModelType < ActiveRecord::Base
 		end
 	end
 
-	def add_name_field
-		if self.name.blank?
+	def synchronize_name_and_slug
+		if self.name.blank? || self.name != self.model_type_slug
 			self.name = self.model_type_slug
 		end
 	end

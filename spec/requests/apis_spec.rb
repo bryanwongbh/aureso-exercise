@@ -29,7 +29,7 @@ describe "API Messages" do
   
   describe "GET ModelType API request" do
     it "does not return ModelType without authentication" do
-      @model_type = FactoryGirl.create :model_type
+      @model_type = ModelType.create!(name: "toyota-hilux", model_type_slug: "toyota-hilux", model_type_code: "hilux01", base_price: 99999, model_id: @model.id)
       get "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}"
       
       @model_type = response_body["model_type"]
@@ -37,7 +37,7 @@ describe "API Messages" do
       expect(response.body).to eq( {'error' => 'You need to sign in or sign up before continuing.'}.to_json )
     end
     it "returns a model_type" do
-      @model_type = FactoryGirl.create :model_type
+      @model_type = ModelType.create!(name: "toyota-hilux", model_type_slug: "toyota-hilux", model_type_code: "hilux01", base_price: 12345, model_id: @model.id)
       get "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}", nil, user_request_headers
       
       @model_type = response_body["model_type"]
@@ -56,6 +56,22 @@ describe "API Messages" do
       model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-avanza", "base_price" => 15000 }}.to_json
       post "/api/models/#{@model.model_slug}/model_types_price", model_type_params, user_request_headers
       expect(ModelType.first.name).to eq "toyota-avanza"
+    end
+  end
+
+  describe "PUT ModelType API request" do
+    it "does not return updated ModelType without authentication" do
+      @model_type = ModelType.create!(name: "toyota-hilux", model_type_slug: "toyota-hilux", model_type_code: "hilux01", base_price: 1111, model_id: @model.id)
+      model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-estima", "base_price" => 9988 }}.to_json
+      patch "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}", model_type_params
+      expect(response.status).to eq 401
+      expect(response.body).to eq( {'error' => 'You need to sign in or sign up before continuing.'}.to_json )
+    end
+    it "returns updated ModelType" do
+      @model_type = ModelType.create!(name: "toyota-hilux", model_type_slug: "toyota-hilux", model_type_code: "hilux01", base_price: 1111, model_id: @model.id)
+      model_type_params = { "model_type" => { "model_slug" => "toyota", "model_type_slug" => "toyota-hilux", "base_price" => 9988 }}.to_json
+      patch "/api/models/#{@model.model_slug}/model_types_price/#{@model_type.model_type_slug}", model_type_params, user_request_headers
+      expect(ModelType.first.base_price).to eq 9988
     end
   end
   
