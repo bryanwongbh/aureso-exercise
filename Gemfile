@@ -32,11 +32,11 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'activeadmin', github: "gregbell/active_admin"
 gem 'devise'
-gem 'rack-cors', require: "rack/cors"
 gem 'active_model_serializers'
 gem 'friendly_id'
 gem 'mechanize'
 gem 'simple_token_authentication', '~> 1.0'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -73,4 +73,6 @@ group :test do
 	gem 'capybara', '2.4.1'
 	gem 'selenium-webdriver', '2.42.0'
 end
+
+ruby '2.2.0'
 
