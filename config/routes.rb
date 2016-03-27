@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      # get 'models/:id/model_types_price/:id' => 'model_types#show', :as => 'model_type'
       resources :models do
         member do
           get 'model_types' => 'models#show'
