@@ -30,7 +30,6 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'activeadmin', github: "gregbell/active_admin"
 gem 'devise'
 gem 'active_model_serializers'
 gem 'friendly_id'
